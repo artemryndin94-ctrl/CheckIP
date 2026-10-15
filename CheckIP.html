@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Your connection details</title>
+  <style>
+    :root {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #111;
+      background: #fff;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-width: 280px;
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    main {
+      width: min(100%, 560px);
+    }
+
+    .page-layout {
+      width: min(100%, 900px);
+      display: grid;
+      grid-template-columns: minmax(0, 560px) minmax(210px, 1fr);
+      align-items: start;
+      gap: 40px;
+    }
+
+    h1 {
+      margin: 0 0 24px;
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    dl {
+      margin: 0;
+    }
+
+    .detail {
+      display: grid;
+      grid-template-columns: minmax(130px, 1fr) 2fr;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .detail:first-child {
+      border-top: 1px solid #e5e5e5;
+    }
+
+    dt {
+      font-weight: 600;
+    }
+
+    dd {
+      margin: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .other-details {
+      padding: 16px 0;
+      border-top: 1px solid #e5e5e5;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .other-details summary {
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .other-details dl {
+      margin-top: 12px;
+    }
+
+    .other-details .detail {
+      grid-template-columns: 1fr;
+      gap: 6px;
+      padding: 12px 0;
+    }
+
+    .other-details .detail:first-child {
+      border-top: 0;
+    }
+
+    .other-details summary,
+    .info-panel summary {
+      list-style: none;
+    }
+
+    .other-details summary::-webkit-details-marker,
+    .info-panel summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .info-panel {
+      grid-column: 1 / -1;
+      width: min(100%, 720px);
+      justify-self: center;
+      padding: 10px 14px;
+      background: #f1f1f1;
+      color: #111;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .info-panel summary {
+      cursor: pointer;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .info-panel ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+    }
+
+    .info-panel li + li {
+      margin-top: 4px;
+    }
+
+    @media (max-width: 820px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .detail {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-layout">
+    <main>
+      <h1>Your connection details</h1>
+      <dl>
+        <div class="detail">
+          <dt>IP address</dt>
+          <dd id="ip-address" aria-live="polite">Loading…</dd>
+        </div>
+        <div class="detail">
+          <dt>Country</dt>
+          <dd id="country" aria-live="polite">Loading…</dd>
+        </div>
+        <div class="detail">
+          <dt>Internet provider</dt>
+          <dd id="internet-provider" aria-live="polite">Loading…</dd>
+        </div>
+        <div class="detail">
+          <dt>Operating system</dt>
+          <dd id="operating-system"></dd>
+        </div>
+        <div class="detail">
+          <dt>Browser</dt>
+          <dd id="browser"></dd>
+        </div>
+      </dl>
+    </main>
+
+    <aside>
+      <details class="other-details">
+        <summary>Other details</summary>
+        <dl>
+          <div class="detail">
+            <dt>Time zone</dt>
+            <dd id="time-zone"></dd>
+          </div>
+          <div class="detail">
+            <dt>Local time</dt>
+            <dd id="local-time"></dd>
+          </div>
+          <div class="detail">
+            <dt>Browser language</dt>
+            <dd id="language"></dd>
+          </div>
+          <div class="detail">
+            <dt>Device type</dt>
+            <dd id="device-type"></dd>
+          </div>
+          <div class="detail">
+            <dt>Screen resolution</dt>
+            <dd id="screen-resolution"></dd>
+          </div>
+          <div class="detail">
+            <dt>Network connection</dt>
+            <dd id="network-type"></dd>
+          </div>
+        </dl>
+      </details>
+    </aside>
+
+    <footer>
+      <details class="info-panel">
+        <summary>Info</summary>
+        <ul>
+          <li><strong>IP address, country, and internet provider:</strong> looked up using your public IP by an external geolocation service. The page tries ipwho.is first and ipapi.co if that request fails. Country and provider are estimates from provider databases and may be outdated or inaccurate; a VPN, proxy, mobile network, or corporate network can change what they report. The lookup services receive your IP address.</li>
+          <li><strong>Operating system:</strong> inferred from information exposed by your browser. Windows 10 and Windows 11 commonly share the same standard browser identifier, so they can only be distinguished when the browser provides its additional platform version. Otherwise the page may show “Windows 10 / 11” or a less specific result. Other OS versions may also be hidden or reduced by the browser.</li>
+          <li><strong>Browser:</strong> its name and version are parsed from the browser identifier. Browsers can hide or modify this information, and unrecognized browsers are shown as “Unknown.” The displayed version may not always be exact.</li>
+          <li><strong>Time zone and local time:</strong> read from your device/browser settings. The time is displayed in 24-hour format and updates every second; incorrect device settings can make both values inaccurate.</li>
+          <li><strong>Browser language:</strong> the preferred language reported by the browser, which may differ from your location or the language you are currently using on a website.</li>
+          <li><strong>Device type:</strong> a best-effort guess based on the browser identifier. Tablets and devices with unusual or privacy-reduced identifiers may be classified incorrectly.</li>
+          <li><strong>Screen resolution:</strong> the screen dimensions reported by the browser in CSS pixels, not necessarily the physical pixel count. Display scaling and browser/device settings can affect the reported values.</li>
+          <li><strong>Network connection:</strong> the connection type or estimated quality, if the browser exposes this optional feature. Many browsers do not, so “Unavailable in this browser” does not mean the internet is disconnected.</li>
+        </ul>
+      </details>
+    </footer>
+  </div>
+
+  <script>
+    function detectOperatingSystem() {
+      const platform = navigator.userAgentData?.platform || navigator.platform || "";
+      const userAgent = navigator.userAgent || "";
+      const value = `${platform} ${userAgent}`.toLowerCase();
+
+      if (/iphone|ipad|ipod/.test(value)) {
+        const version = userAgent.match(/OS (\d+[._]\d+)/i)?.[1].replace("_", ".");
+        return version ? `iOS ${version}` : "iOS";
+      }
+      if (/android/.test(value)) {
+        const version = userAgent.match(/Android[ /-]([\d.]+)/i)?.[1];
+        return version ? `Android ${version}` : "Android";
+      }
+      if (/windows/.test(value)) {
+        const version = userAgent.match(/Windows NT ([\d.]+)/i)?.[1];
+        const windowsVersions = {
+          "10.0": "Windows 10 / 11",
+          "6.3": "Windows 8.1",
+          "6.2": "Windows 8",
+          "6.1": "Windows 7",
+          "6.0": "Windows Vista",
+          "5.2": "Windows XP",
+          "5.1": "Windows XP",
+          "5.0": "Windows 2000"
+        };
+        return windowsVersions[version] || "Windows (version unavailable)";
+      }
+      if (/macintosh|mac os|macintel/.test(value)) {
+        const version = userAgent.match(/Mac OS X ([\d_]+)/i)?.[1].replace(/_/g, ".");
+        return version ? `macOS ${version}` : "macOS";
+      }
+      if (/cros/.test(value)) return "ChromeOS";
+      if (/linux|x11/.test(value)) return "Linux";
+      return "Unknown";
+    }
+
+    async function detectDetailedOperatingSystem() {
+      const operatingSystemElement = document.getElementById("operating-system");
+      operatingSystemElement.textContent = detectOperatingSystem();
+
+      if (navigator.userAgentData?.getHighEntropyValues) {
+        try {
+          const details = await navigator.userAgentData.getHighEntropyValues(["platformVersion"]);
+          if (details.platform === "Windows" && details.platformVersion) {
+            const majorVersion = Number.parseInt(details.platformVersion.split(".")[0], 10);
+            operatingSystemElement.textContent =
+              majorVersion >= 13 ? "Windows 11" : "Windows 10";
+          }
+        } catch (error) {
+          console.warn("Could not read the operating system version:", error);
+        }
+      }
+    }
+
+    function detectBrowser() {
+      const userAgent = navigator.userAgent || "";
+      const browsers = [
+        ["Microsoft Edge", /(?:Edg|Edge)\/([\d.]+)/],
+        ["Opera", /(?:OPR|Opera)\/([\d.]+)/],
+        ["Samsung Internet", /SamsungBrowser\/([\d.]+)/],
+        ["Firefox", /Firefox\/([\d.]+)/],
+        ["Google Chrome", /(?:Chrome|CriOS)\/([\d.]+)/],
+        ["Safari", /Version\/([\d.]+).*Safari/]
+      ];
+
+      for (const [name, pattern] of browsers) {
+        const match = userAgent.match(pattern);
+        if (match) {
+          const version = match[1].split(".");
+          return `${name} ${version.slice(0, 2).join(".")}`;
+        }
+      }
+
+      return "Unknown";
+    }
+
+    detectDetailedOperatingSystem();
+    document.getElementById("browser").textContent = detectBrowser();
+
+    function detectDeviceType() {
+      const userAgent = navigator.userAgent || "";
+      if (/ipad|tablet|playbook|silk/.test(userAgent.toLowerCase())) return "Tablet";
+      if (/mobi|iphone|ipod|android/.test(userAgent.toLowerCase())) return "Mobile";
+      return "Desktop";
+    }
+
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    document.getElementById("time-zone").textContent = timeZone || "Unavailable";
+    document.getElementById("language").textContent = navigator.language || "Unavailable";
+    document.getElementById("device-type").textContent = detectDeviceType();
+    document.getElementById("screen-resolution").textContent =
+      `${window.screen.width} × ${window.screen.height}`;
+
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const networkType = connection?.effectiveType || connection?.type;
+    document.getElementById("network-type").textContent = networkType
+      ? networkType.toUpperCase()
+      : "Unavailable in this browser";
+
+    const localTimeElement = document.getElementById("local-time");
+    function updateLocalTime() {
+      localTimeElement.textContent = new Intl.DateTimeFormat(navigator.language || "en", {
+        hourCycle: "h23",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      }).format(new Date());
+    }
+    updateLocalTime();
+    setInterval(updateLocalTime, 1000);
+
+    async function loadNetworkDetails() {
+      const ipElement = document.getElementById("ip-address");
+      const countryElement = document.getElementById("country");
+      const providerElement = document.getElementById("internet-provider");
+      const providers = [
+        {
+          url: "https://ipwho.is/",
+          read: data => data.success === false
+            ? null
+            : {
+                ip: data.ip,
+                country: data.country,
+                provider: data.connection?.isp || data.connection?.org
+              }
+        },
+        {
+          url: "https://ipapi.co/json/",
+          read: data => data.error
+            ? null
+            : { ip: data.ip, country: data.country_name, provider: data.org }
+        }
+      ];
+      const errors = [];
+
+      for (const provider of providers) {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 8000);
+
+        try {
+          const response = await fetch(provider.url, {
+            signal: controller.signal,
+            headers: { Accept: "application/json" }
+          });
+          if (!response.ok) {
+            throw new Error(`Request failed with HTTP ${response.status}`);
+          }
+
+          const result = provider.read(await response.json());
+          if (!result?.ip || !result?.country) {
+            throw new Error("The service did not return an IP address and country");
+          }
+
+          ipElement.textContent = result.ip;
+          countryElement.textContent = result.country;
+          providerElement.textContent = result.provider || "Unavailable";
+          return;
+        } catch (error) {
+          errors.push(`${provider.url}: ${error.message}`);
+          console.warn(`Network lookup failed for ${provider.url}:`, error);
+        } finally {
+          clearTimeout(timeout);
+        }
+      }
+      ipElement.textContent = "Unavailable";
+      countryElement.textContent = "Unavailable";
+      providerElement.textContent = "Unavailable";
+      console.error("All network lookup services failed:", errors.join("; "));
+    }
+
+    loadNetworkDetails();
+  </script>
+</body>
+</html>
